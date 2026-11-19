@@ -10,7 +10,7 @@ Open `site/index.html` in a browser. The site assets and downloadable work are s
 
 GitHub Actions publishes the contents of `site/` directly to GitHub Pages. No build command or server is required.
 
-- Live site: [Heba Al-Sayda](https://akoudimati.github.io/portfolio/)
+- Live site: [Heba Al-Sayda](https://heba-al-sayda.github.io/portfolio/)
 - Every push to `main` and manual workflow dispatch deploy the static files.
 - In the repository's **Settings → Pages**, set the source to **GitHub Actions**.
 
