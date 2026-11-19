@@ -580,5 +580,13 @@ $("[data-gallery-next]").addEventListener("click", () => {
 $("#lightbox").addEventListener("click", (event) => {
   if (event.target === $("#lightbox")) $("#lightbox").close();
 });
+function updateScrollProgress() {
+  const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollableHeight > 0 ? Math.max(0, Math.min(window.scrollY / scrollableHeight, 1)) : 0;
+  document.documentElement.style.setProperty("--scroll-progress", String(progress));
+}
+window.addEventListener("scroll", updateScrollProgress, { passive: true });
+window.addEventListener("resize", updateScrollProgress);
+updateScrollProgress();
 $("#current-year").textContent = String(new Date().getFullYear());
 render();
