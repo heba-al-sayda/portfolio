@@ -227,8 +227,8 @@ h1 { margin-bottom: 0; font-size: clamp(3.2rem, 8vw, 6.7rem); line-height: 1.08;
 .gallery-previous { inset-inline-start: 12px; }
 .gallery-next { inset-inline-end: 12px; }
 .dialog-close:hover, .gallery-arrow:hover { border-color: var(--accent); color: var(--accent-light); }
-.reveal { animation: rise-in .7s both; }
-@keyframes rise-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+.js .reveal, .js .section-heading { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+.js .reveal.is-visible, .js .section-heading.is-visible { opacity: 1; transform: translateY(0); }
 
 html[dir="rtl"] .method-card { border-radius: 16px 0 0 16px; }
 
@@ -275,4 +275,5 @@ html[dir="rtl"] .method-card { border-radius: 16px 0 0 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .js .reveal, .js .section-heading { opacity: 1; transform: none; }
 }

@@ -336,6 +336,8 @@ const state = { language: readSavedLanguage(), galleryIndex: -1 };
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 let sectionObserver;
+let revealObserver;
+document.documentElement.classList.add("js");
 const escapeHTML = (value) => String(value).replace(/[&<>"']/g, (char) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
 })[char]);
@@ -501,7 +503,12 @@ function showGalleryDesign(index) {
 
 function observeSections() {
   sectionObserver?.disconnect();
-  if (!("IntersectionObserver" in window)) return;
+  revealObserver?.disconnect();
+  const revealElements = $$(".reveal, .section-heading");
+  if (!("IntersectionObserver" in window)) {
+    revealElements.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
   sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
@@ -513,6 +520,14 @@ function observeSections() {
     });
   }, { rootMargin: "-30% 0px -60% 0px" });
   $$("main section[id]").forEach((section) => sectionObserver.observe(section));
+  revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+  revealElements.forEach((element) => revealObserver.observe(element));
 }
 
 document.addEventListener("click", (event) => {
